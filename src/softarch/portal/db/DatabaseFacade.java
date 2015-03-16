@@ -11,6 +11,7 @@ import java.util.Date;
  * This class implements a facade for all of the database layer's functionality.
  * @author Niels Joncheere
  */
+//we will create a database facade interface
 public class DatabaseFacade {
 	private UserDatabase	userDb;
 	private RegularDatabase	regularDb;

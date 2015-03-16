@@ -1,8 +1,10 @@
-package softarch.portal.db;
+package softarch.portal.db.sql;
 
 import softarch.portal.data.RawData;
 import softarch.portal.data.RegularData;
 import softarch.portal.data.UserProfile;
+import softarch.portal.db.DatabaseException;
+import softarch.portal.db.DbFacadeInterface;
 
 import java.util.List;
 import java.util.Date;
@@ -12,7 +14,7 @@ import java.util.Date;
  * @author Niels Joncheere
  */
 //we will create a database facade interface
-public class DatabaseFacade {
+public class DatabaseFacade implements DbFacadeInterface{
 	private UserDatabase	userDb;
 	private RegularDatabase	regularDb;
 	private RawDatabase	rawDb;

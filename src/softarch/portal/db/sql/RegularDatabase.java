@@ -1,4 +1,4 @@
-package softarch.portal.db;
+package softarch.portal.db.sql;
 
 import java.util.List;
 import java.util.Date;
@@ -17,6 +17,7 @@ import softarch.portal.data.InterestingWebsite;
 import softarch.portal.data.RegularData;
 import softarch.portal.data.Report;
 import softarch.portal.data.SoftwareRepository;
+import softarch.portal.db.DatabaseException;
 
 import java.text.ParseException;
 import java.sql.SQLException;

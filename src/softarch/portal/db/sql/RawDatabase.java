@@ -1,4 +1,4 @@
-package softarch.portal.db;
+package softarch.portal.db.sql;
 
 import java.util.List;
 import java.util.Vector;
@@ -15,6 +15,7 @@ import softarch.portal.data.RawData;
 import softarch.portal.data.RegularData;
 import softarch.portal.data.Report;
 import softarch.portal.data.SoftwareRepository;
+import softarch.portal.db.DatabaseException;
 
 import java.sql.SQLException;
 

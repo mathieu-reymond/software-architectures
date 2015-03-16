@@ -4,7 +4,7 @@ package softarch.portal.app;
 import softarch.portal.data.RawData;
 import softarch.portal.data.RegularData;
 import softarch.portal.db.DatabaseException;
-import softarch.portal.db.DatabaseFacade;
+import softarch.portal.db.DbFacadeInterface;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class AdministrationManager extends Manager {
 	 * @param dbFacade	The database facade the manager should use
 	 * 			to access the database.
 	 */
-	public AdministrationManager(DatabaseFacade dbFacade) {
+	public AdministrationManager(DbFacadeInterface dbFacade) {
 		this.dbFacade = dbFacade;
 	}
 

@@ -4,7 +4,8 @@ package softarch.portal.app;
 import softarch.portal.data.RawData;
 import softarch.portal.data.RegularData;
 import softarch.portal.data.UserProfile;
-import softarch.portal.db.DatabaseFacade;
+import softarch.portal.db.DbFacadeInterface;
+import softarch.portal.db.sql.DatabaseFacade;
 
 import java.util.List;
 import java.util.Date;
@@ -26,8 +27,8 @@ public class ApplicationFacade {
 	public ApplicationFacade(	String dbUser,
 					String dbPassword,
 					String dbUrl) {
-		
-		DatabaseFacade dbFacade
+		//should be determined by config file
+		DbFacadeInterface dbFacade
 			= new DatabaseFacade(dbUser, dbPassword, dbUrl);
 		
 		userManager		= new UserManager(dbFacade);

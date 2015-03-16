@@ -2,7 +2,7 @@ package softarch.portal.db.test;
 
 import softarch.portal.data.RawData;
 import softarch.portal.data.SoftwareRepository;
-import softarch.portal.db.RawDatabase;
+import softarch.portal.db.sql.RawDatabase;
 
 import java.util.Date;
 import java.net.URL;

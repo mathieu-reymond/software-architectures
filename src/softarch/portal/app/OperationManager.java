@@ -2,7 +2,7 @@ package softarch.portal.app;
 
 
 import softarch.portal.db.DatabaseException;
-import softarch.portal.db.DatabaseFacade;
+import softarch.portal.db.DbFacadeInterface;
 
 /**
  * This class is responsible for handling requests for diagnostic information,
@@ -16,7 +16,7 @@ public class OperationManager extends Manager {
 	 * @param dbFacade	The database facade the manager should use to
 	 * 			access the portal's database(s).
 	 */
-	public OperationManager(DatabaseFacade dbFacade) {
+	public OperationManager(DbFacadeInterface dbFacade) {
 		this.dbFacade = dbFacade;
 	}
 

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Iterator;
 
 import softarch.portal.data.RegularData;
-import softarch.portal.db.RegularDatabase;
+import softarch.portal.db.sql.RegularDatabase;
 
 /**
  * This is a test program for the regular database.

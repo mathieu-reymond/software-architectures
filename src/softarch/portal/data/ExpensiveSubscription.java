@@ -106,4 +106,17 @@ public class ExpensiveSubscription extends RegularUser {
 			df.format(lastLogin) + "\' " + "WHERE Username = \'" +
 			normalizeSql(username) + "\';";
 	}
+	
+	public String asJSON() {
+		return "{"
+				  + "username = \'"+ username + "\'"
+				  + "password = \'"+ password + "\'"
+				  + "firstName = \'"+ firstName + "\'"
+				  + "lastName = \'"+ lastName + "\'"
+				  + "emailAddress = \'"+ emailAddress + "\'"
+				  + "lastLogin = \'"+ lastLogin + "\'"
+				+"}";
+	}
 }
+
+

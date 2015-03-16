@@ -1,6 +1,7 @@
 package softarch.portal.data;
 
 import javax.servlet.http.HttpServletRequest;
+
 import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -105,5 +106,16 @@ public class FreeSubscription extends RegularUser {
 			normalizeSql(emailAddress) + "\', LastLogin = \'" +
 			df.format(lastLogin) + "\' " + "WHERE Username = \'" +
 			normalizeSql(username) + "\';";
+	}
+	
+	public String asJSON() {
+		return "{"
+				  + "username = \'"+ username + "\'"
+				  + "password = \'"+ password + "\'"
+				  + "firstName = \'"+ firstName + "\'"
+				  + "lastName = \'"+ lastName + "\'"
+				  + "emailAddress = \'"+ emailAddress + "\'"
+				  + "lastLogin = \'"+ lastLogin + "\'"
+				+"}";
 	}
 }

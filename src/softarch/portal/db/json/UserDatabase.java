@@ -3,7 +3,7 @@ package softarch.portal.db.json;
 import softarch.portal.data.UserProfile;
 import softarch.portal.db.DatabaseException;
 
-public class UserDatabase {
+public class UserDatabase extends Database{
 	
 	public void insert(UserProfile profile) throws DatabaseException {
 		// TODO Auto-generated method stub

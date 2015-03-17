@@ -23,14 +23,14 @@ public class UserDatabase extends Database{
 	}
 
 	public UserProfile findUser(String username) throws DatabaseException {
-		JSONObject user = find("tableName", "username", username);
+		JSONObject user = find("user", "username", username);
 		String type = (String) user.get("type");
 		//add case to make correct user
 		return null;
 	}
 
 	public boolean userExists(String username) throws DatabaseException {
-		JSONObject user = find("tableName", "username", username);
+		JSONObject user = find("user", "username", username);
 		if(user != null) return true;
 		else return false;
 	}

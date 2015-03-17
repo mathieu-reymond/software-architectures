@@ -127,10 +127,13 @@ public class InternetFrontEnd extends HttpServlet {
 			String cfgfile = getInitParameter("config_file");
 			properties.load(new FileInputStream(cfgfile));
 			ApplicationFacade appFacade
+			= new ApplicationFacade(
+				properties.getProperty("config"));
+			/*ApplicationFacade appFacade
 				= new ApplicationFacade(
 					properties.getProperty("dbUser"),
 					properties.getProperty("dbPassword"),
-					properties.getProperty("dbUrl"));
+					properties.getProperty("dbUrl"));*/
 			pages.put(	"Registration",
 					new RegistrationPage(appFacade));
 			pages.put(	"Login",

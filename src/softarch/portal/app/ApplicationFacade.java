@@ -5,10 +5,21 @@ import softarch.portal.data.RawData;
 import softarch.portal.data.RegularData;
 import softarch.portal.data.UserProfile;
 import softarch.portal.db.DbFacadeInterface;
+import softarch.portal.db.json.Database;
 import softarch.portal.db.sql.DatabaseFacade;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Date;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  * This class implements a facade for all of the application layer's
@@ -28,6 +39,7 @@ public class ApplicationFacade {
 					String dbPassword,
 					String dbUrl) {
 		//should be determined by config file
+		
 		DbFacadeInterface dbFacade
 			= new DatabaseFacade(dbUser, dbPassword, dbUrl);
 		
@@ -35,6 +47,49 @@ public class ApplicationFacade {
 		queryManager		= new QueryManager(dbFacade);
 		administrationManager	= new AdministrationManager(dbFacade);
 		operationManager	= new OperationManager(dbFacade);
+	}
+	
+	public ApplicationFacade(String config) {
+		try {
+			DbFacadeInterface dbFacade = getDatabaseFacade(config);
+			userManager		= new UserManager(dbFacade);
+			queryManager		= new QueryManager(dbFacade);
+			administrationManager	= new AdministrationManager(dbFacade);
+			operationManager	= new OperationManager(dbFacade);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public DbFacadeInterface getDatabaseFacade(String configPath) throws Exception {
+		JSONParser parser = new JSONParser();
+		
+			try {
+				Object obj = parser.parse(new FileReader(configPath));
+				JSONObject json = (JSONObject) obj;
+				String facade = (String) json.get("name");
+				//System.out.println(facade);
+				JSONArray paramsArray = (JSONArray) json.get("parameters");
+				Object[] params = paramsArray.toArray();
+				//System.out.println(params[0]);
+				DbFacadeInterface object;
+				if (facade.equals("softarch.portal.db.sql.DatabaseFacade.java")) {
+					object = new softarch.portal.db.sql.DatabaseFacade((String) params[0],(String) params[1],(String) params[2]);
+				}
+				else {
+					object = new softarch.portal.db.json.DatabaseFacade((String) params[0]);
+				}
+				/*
+				Class<?> c = Class.forName(facade);
+				System.out.println("got class");
+				Constructor<?> cons = c.getConstructor(String.class);
+				System.out.println("got constructor");
+				Object object = cons.newInstance(params);*/
+				return (DbFacadeInterface) object;
+			} catch (Exception e) {
+				throw new Exception(e.getMessage());
+			} 
 	}
 
 

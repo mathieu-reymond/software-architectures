@@ -12,8 +12,8 @@ import softarch.portal.db.DbFacadeInterface;
 public class DatabaseFacade implements DbFacadeInterface {
 	UserDatabase userDb;
 	
-	public DatabaseFacade() {
-		userDb = new UserDatabase();
+	public DatabaseFacade(String databasePath) {
+		userDb = new UserDatabase(databasePath);
 	}
 
 	public void insert(UserProfile profile) throws DatabaseException {

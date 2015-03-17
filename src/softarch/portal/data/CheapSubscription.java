@@ -126,7 +126,7 @@ public class CheapSubscription extends RegularUser {
 		obj.put("firstName", firstName);
 		obj.put("lastName", lastName);
 		obj.put("emailAddress", emailAddress);
-		obj.put("lastLogin", lastLogin);
+		obj.put("lastLogin", lastLogin.toString());
 		obj.put("type", "cheapSubscription");
 		return obj;
 	}

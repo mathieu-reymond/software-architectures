@@ -5,6 +5,11 @@ import softarch.portal.db.DatabaseException;
 
 public class UserDatabase extends Database{
 	
+	public UserDatabase(String path) {
+		super(path);
+		// TODO Auto-generated constructor stub
+	}
+
 	public void insert(UserProfile profile) throws DatabaseException {
 		// TODO Auto-generated method stub
 

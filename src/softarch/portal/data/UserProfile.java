@@ -48,4 +48,5 @@ public abstract class UserProfile extends Data {
 		this.lastLogin = lastLogin;
 		return this;
 	}
+	
 }

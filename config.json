@@ -1,8 +1,6 @@
 {
-	"name": "softarch.portal.db.sql.DatabaseFacade.java",
+	"name": "softarch.portal.db.json.DatabaseFacade.java",
 	"parameters": [
-		"SA",
-		"",
-		"file:/home/mreymond/workspace/web_portal/DB/web_portal;ifexists=true;shutdown=true"
+		"/home/mreymond/workspace/web_portal/DB/json"
 	]
 }

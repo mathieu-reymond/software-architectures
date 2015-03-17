@@ -1,7 +1,13 @@
 package softarch.portal.db.json;
 
+import java.sql.SQLException;
+import java.text.ParseException;
+
 import org.json.simple.JSONObject;
 
+import softarch.portal.data.CheapSubscription;
+import softarch.portal.data.ExpensiveSubscription;
+import softarch.portal.data.FreeSubscription;
 import softarch.portal.data.UserProfile;
 import softarch.portal.db.DatabaseException;
 
@@ -23,10 +29,25 @@ public class UserDatabase extends Database{
 	}
 
 	public UserProfile findUser(String username) throws DatabaseException {
-		JSONObject user = find("user", "username", username);
+		JSONObject user = find("user", "Username", username);
 		String type = (String) user.get("type");
 		//add case to make correct user
-		return null;
+		UserProfile up;
+		try {
+		if(type.equals("freeSubscription")) {
+			up = new FreeSubscription(user);
+		}
+		else if(type.equals("cheapSubscription")) {
+			up = new CheapSubscription(user);
+		}
+		else if(type.equals("expensiveSubscription")) {
+			up = new ExpensiveSubscription(user);
+		}
+		else throw new DatabaseException("No userType " + type);
+		} catch (ParseException e) {
+			throw new DatabaseException("problem parsing " + e.getMessage());
+		}
+		return up;
 	}
 
 	public boolean userExists(String username) throws DatabaseException {

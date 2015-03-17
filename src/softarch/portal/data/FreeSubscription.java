@@ -62,13 +62,13 @@ public class FreeSubscription extends RegularUser {
 		this.lastLogin		= lastLogin;
 	}
 	
-	public FreeSubscription(JSONObject json) {
-		this.username = (String) json.get("username");
-		this.password = (String) json.get("password");
-		this.firstName = (String) json.get("firstName");
-		this.lastName = (String) json.get("lastName");
-		this.emailAddress = (String) json.get("emailAddress");
-		this.lastLogin = (Date) json.get("lastLogin");
+	public FreeSubscription(JSONObject json) throws ParseException {
+		this.username = (String) json.get("Username");
+		this.password = (String) json.get("Password");
+		this.firstName = (String) json.get("FirstName");
+		this.lastName = (String) json.get("LastName");
+		this.emailAddress = (String) json.get("EmailAddress");
+		this.lastLogin = df.parse((String) json.get("LastLogin"));
 	}
 
 	/**
@@ -121,12 +121,12 @@ public class FreeSubscription extends RegularUser {
 	
 	public JSONObject asJSON() {
 		JSONObject obj = new JSONObject();
-		obj.put("username", username);
-		obj.put("password", password);
-		obj.put("firstName", firstName);
-		obj.put("lastName", lastName);
-		obj.put("emailAddress", emailAddress);
-		obj.put("lastLogin", lastLogin.toString());
+		obj.put("Username", username);
+		obj.put("Password", password);
+		obj.put("FirstName", firstName);
+		obj.put("LastName", lastName);
+		obj.put("EmailAddress", emailAddress);
+		obj.put("LastLogin", lastLogin.toString());
 		obj.put("type", "freeSubscription");
 		return obj;
 	}

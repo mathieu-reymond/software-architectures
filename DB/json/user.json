@@ -1,0 +1,20 @@
+[
+	{
+		"Username": "bruno",
+		"Password": "9012",
+		"FirstName": "Bruno",
+		"LastName": "De Fraine",
+		"EmailAddress": "bruno@soft",
+		"LastLogin": "2008-02-01 14:32:00",
+		"type": "expensiveSubscription"
+	},
+	{
+		"Username": "test",
+		"Password": "test",
+		"FirstName": "test",
+		"LastName": "test",
+		"EmailAddress": "test@soft",
+		"LastLogin": "2008-02-01 14:32:00",
+		"type": "cheapSubscription"
+	}
+]

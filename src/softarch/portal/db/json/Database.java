@@ -122,5 +122,17 @@ public class Database {
 			throw new DatabaseException("There is no element with key '" + keyName + "' to update");
 		}
 	}
+	
+	public JSONObject find(String tableName, String keyName, String key) throws DatabaseException {
+		JSONArray array = readTable(tableName);
+		ListIterator<JSONObject> iter = array.listIterator();
+		while(iter.hasNext()) {
+			JSONObject current = iter.next();
+			if(current.get(keyName).equals(key)) {
+				return current;
+			}
+		}
+		return null;
+	}
 
 }

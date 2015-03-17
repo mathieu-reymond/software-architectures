@@ -1,5 +1,7 @@
 package softarch.portal.db.json;
 
+import org.json.simple.JSONObject;
+
 import softarch.portal.data.UserProfile;
 import softarch.portal.db.DatabaseException;
 
@@ -21,13 +23,16 @@ public class UserDatabase extends Database{
 	}
 
 	public UserProfile findUser(String username) throws DatabaseException {
-		// TODO Auto-generated method stub
+		JSONObject user = find("tableName", "username", username);
+		String type = (String) user.get("type");
+		//add case to make correct user
 		return null;
 	}
 
 	public boolean userExists(String username) throws DatabaseException {
-		// TODO Auto-generated method stub
-		return false;
+		JSONObject user = find("tableName", "username", username);
+		if(user != null) return true;
+		else return false;
 	}
 
 }

@@ -61,6 +61,15 @@ public class CheapSubscription extends RegularUser {
 		this.emailAddress	= emailAddress;
 		this.lastLogin		= lastLogin;
 	}
+	
+	public CheapSubscription(JSONObject json) {
+		this.username = (String) json.get("username");
+		this.password = (String) json.get("password");
+		this.firstName = (String) json.get("firstName");
+		this.lastName = (String) json.get("lastName");
+		this.emailAddress = (String) json.get("emailAddress");
+		this.lastLogin = (Date) json.get("lastLogin");
+	}
 
 	/**
 	 * Returns an XML representation of the object.

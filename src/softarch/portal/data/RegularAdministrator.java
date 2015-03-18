@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Date;
 
+import org.json.simple.JSONObject;
+
 /**
  * Represents a <i>regular administrator</i> user account.
  * @author Niels Joncheere
@@ -90,5 +92,11 @@ public class RegularAdministrator extends Administrator {
 			normalizeSql(emailAddress) + "\', LastLogin = \'" +
 			df.format(lastLogin) + "\' " + "WHERE Username = \'" +
 			normalizeSql(username) + "\';";
+	}
+
+	@Override
+	public JSONObject asJSON() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

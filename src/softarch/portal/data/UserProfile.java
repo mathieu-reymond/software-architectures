@@ -2,6 +2,8 @@ package softarch.portal.data;
 
 import java.util.Date;
 
+import org.json.simple.JSONObject;
+
 /**
  * This is an abstract superclass for all user profiles.
  * @author Niels Joncheere
@@ -48,5 +50,11 @@ public abstract class UserProfile extends Data {
 		this.lastLogin = lastLogin;
 		return this;
 	}
+	
+	/**
+	 * Return a JSON representation of this userProfile
+	 * @return
+	 */
+	public abstract JSONObject asJSON();
 	
 }

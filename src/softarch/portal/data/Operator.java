@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Date;
 
+import org.json.simple.JSONObject;
+
 /**
  * This class represents an <i>operator</i> user account.
  * @author Niels Joncheere
@@ -98,5 +100,11 @@ public class Operator extends UserProfile {
 			normalizeSql(emailAddress) + "\', LastLogin = \'" +
 			df.format(lastLogin) + "\' " + "WHERE Username = \'" +
 			normalizeSql(username) + "\';";
+	}
+
+	@Override
+	public JSONObject asJSON() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

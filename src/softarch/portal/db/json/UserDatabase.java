@@ -19,13 +19,12 @@ public class UserDatabase extends Database{
 	}
 
 	public void insert(UserProfile profile) throws DatabaseException {
-		// TODO Auto-generated method stub
+		insert("user", "Username", profile.getUsername(), profile.asJSON());
 
 	}
 
 	public void update(UserProfile profile) throws DatabaseException {
-		// TODO Auto-generated method stub
-
+		update("user", "Username", profile.getUsername(), profile.asJSON());
 	}
 
 	public UserProfile findUser(String username) throws DatabaseException {
@@ -51,7 +50,7 @@ public class UserDatabase extends Database{
 	}
 
 	public boolean userExists(String username) throws DatabaseException {
-		JSONObject user = find("user", "username", username);
+		JSONObject user = find("user", "Username", username);
 		if(user != null) return true;
 		else return false;
 	}

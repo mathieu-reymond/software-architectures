@@ -120,13 +120,7 @@ public class CheapSubscription extends RegularUser {
 	}
 	
 	public JSONObject asJSON() {
-		JSONObject obj = new JSONObject();
-		obj.put("Username", username);
-		obj.put("Password", password);
-		obj.put("FirstName", firstName);
-		obj.put("LastName", lastName);
-		obj.put("EmailAddress", emailAddress);
-		obj.put("LastLogin", df.format(lastLogin));
+		JSONObject obj = super.asJSON();
 		obj.put("type", "cheapSubscription");
 		return obj;
 	}

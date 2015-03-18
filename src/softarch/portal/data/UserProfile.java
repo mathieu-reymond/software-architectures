@@ -55,6 +55,16 @@ public abstract class UserProfile extends Data {
 	 * Return a JSON representation of this userProfile
 	 * @return
 	 */
-	public abstract JSONObject asJSON();
+	public JSONObject asJSON() {
+		JSONObject obj = new JSONObject();
+		obj.put("Username", username);
+		obj.put("Password", password);
+		obj.put("FirstName", firstName);
+		obj.put("LastName", lastName);
+		obj.put("EmailAddress", emailAddress);
+		obj.put("LastLogin", df.format(lastLogin));
+		
+		return obj;
+	}
 	
 }

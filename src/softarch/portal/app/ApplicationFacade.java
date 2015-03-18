@@ -69,23 +69,12 @@ public class ApplicationFacade {
 				Object obj = parser.parse(new FileReader(configPath));
 				JSONObject json = (JSONObject) obj;
 				String facade = (String) json.get("name");
-				//System.out.println(facade);
 				JSONArray paramsArray = (JSONArray) json.get("parameters");
 				Object[] params = paramsArray.toArray();
-				//System.out.println(params[0]);
-				DbFacadeInterface object;
-				if (facade.equals("softarch.portal.db.sql.DatabaseFacade.java")) {
-					object = new softarch.portal.db.sql.DatabaseFacade((String) params[0],(String) params[1],(String) params[2]);
-				}
-				else {
-					object = new softarch.portal.db.json.DatabaseFacade((String) params[0]);
-				}
-				/*
+				
 				Class<?> c = Class.forName(facade);
-				System.out.println("got class");
 				Constructor<?> cons = c.getConstructor(String.class);
-				System.out.println("got constructor");
-				Object object = cons.newInstance(params);*/
+				DbFacadeInterface object = (DbFacadeInterface) cons.newInstance(params);
 				return (DbFacadeInterface) object;
 			} catch (Exception e) {
 				throw new Exception(e.getMessage());

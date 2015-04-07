@@ -104,7 +104,7 @@ public class FreeSubscription extends RegularUser {
 			normalizeSql(emailAddress) + "\', \'" +
 			df.format(lastLogin) + "\');";
 	}
-
+	
 	/**
 	 * Returns an SQL UPDATE string that allows the system to update
 	 * the account in a relational database.

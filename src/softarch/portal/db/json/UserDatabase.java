@@ -29,6 +29,7 @@ public class UserDatabase extends Database{
 
 	public UserProfile findUser(String username) throws DatabaseException {
 		JSONObject user = find("user", "Username", username);
+		if (user == null) throw new DatabaseException("Invalid username!");
 		String type = (String) user.get("type");
 		//add case to make correct user
 		UserProfile up;

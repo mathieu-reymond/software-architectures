@@ -18,6 +18,7 @@ import softarch.portal.data.RegularData;
 import softarch.portal.data.Report;
 import softarch.portal.data.SoftwareRepository;
 import softarch.portal.db.DatabaseException;
+import softarch.portal.db.webservice.WebService;
 
 import java.text.ParseException;
 import java.sql.SQLException;
@@ -53,8 +54,11 @@ public class RegularDatabase extends Database {
 			switch (informationType.charAt(0)) {
 				case 'B':
 					rs = statement.executeQuery("SELECT * FROM Book WHERE Author LIKE \'" + queryString + "\' OR Publisher LIKE \'" + queryString + "\' OR Review LIKE \'" + queryString + "\' OR Summary LIKE \'" + queryString + "\' OR Title LIKE \'" + queryString + "\' ORDER BY DateAdded DESC;");
-					while (rs.next())
+					while (rs.next()) {
 						result.add(new Book(rs));
+					}
+					WebService service = new WebService();
+					result.addAll(service.findRecords(queryString));
 					return result;
 				case 'A':
 					rs = statement.executeQuery("SELECT * FROM Article WHERE MATCH (Author, Review, Summary, Title) AGAINST (\'" + queryString + "\' IN BOOLEAN MODE) ORDER BY DateAdded DESC;");

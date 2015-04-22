@@ -5,9 +5,13 @@ import softarch.portal.data.RegularData;
 import softarch.portal.data.UserProfile;
 import softarch.portal.db.DatabaseException;
 import softarch.portal.db.DbFacadeInterface;
+import softarch.portal.db.webservice.WebService;
 
+import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Date;
+
+import javax.xml.rpc.ServiceException;
 
 /**
  * This class implements a facade for all of the database layer's functionality.
@@ -84,6 +88,8 @@ public class DatabaseFacade implements DbFacadeInterface{
 
 		} catch (MalformedURLException e) {
 
+		} catch (DatabaseException e) {
+			
 		}
 		return result;
 	}
@@ -102,6 +108,8 @@ public class DatabaseFacade implements DbFacadeInterface{
 
 		} catch (MalformedURLException e) {
 
+		} catch (DatabaseException e) {
+			
 		}
 		return result;
 	}

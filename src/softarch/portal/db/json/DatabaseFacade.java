@@ -1,13 +1,18 @@
 package softarch.portal.db.json;
 
+import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.xml.rpc.ServiceException;
 
 import softarch.portal.data.RawData;
 import softarch.portal.data.RegularData;
 import softarch.portal.data.UserProfile;
 import softarch.portal.db.DatabaseException;
 import softarch.portal.db.DbFacadeInterface;
+import softarch.portal.db.webservice.WebService;
 
 public class DatabaseFacade implements DbFacadeInterface {
 	UserDatabase userDb;
@@ -36,12 +41,38 @@ public class DatabaseFacade implements DbFacadeInterface {
 
 	public List findRecords(String informationType, String queryString)
 			throws DatabaseException {
-		throw new DatabaseException("Not supported by JSON database");
+		List result = new ArrayList();
+		try {
+			WebService service = new WebService();
+			result.addAll(service.findRecords(informationType, queryString));
+		} catch (ServiceException e) {
+
+		} catch (MalformedURLException e) {
+
+		} catch (DatabaseException e) {
+			
+		}
+		return result;
 	}
 
+		/**
+		 * Returns a list containing all records of the given information type
+		 * that were added after the given date.
+		 */
 	public List findRecordsFrom(String informationType, Date date)
 			throws DatabaseException {
-		throw new DatabaseException("Not supported by JSON database");
+		List result = new ArrayList();
+		try {
+			WebService service = new WebService();
+			result.addAll(service.findRecordsFrom(informationType, date));
+		} catch (ServiceException e) {
+
+		} catch (MalformedURLException e) {
+
+		} catch (DatabaseException e) {
+			
+		}
+		return result;
 	}
 
 	public void add(RegularData rd) throws DatabaseException {

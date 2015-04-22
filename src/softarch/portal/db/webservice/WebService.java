@@ -19,6 +19,7 @@ import librarysearch.soft.LibrarySearchResponse;
 import librarysearch.soft.LibrarySearchSOAPBindingStub;
 import librarysearch.soft.LibrarySearchServiceLocator;
 import softarch.portal.data.Book;
+import softarch.portal.db.DatabaseException;
 import softarch.portal.db.RecordFinderInterface;
 
 public class WebService implements RecordFinderInterface {
@@ -59,8 +60,10 @@ public class WebService implements RecordFinderInterface {
 				for (Iterator<MessageElement> iterator = element.getChildren().iterator(); iterator.hasNext();) {
 					MessageElement el = iterator.next();
 					be.ac.vub.soft.Book book = (be.ac.vub.soft.Book) el.getObjectValue(be.ac.vub.soft.Book.class);
-					boolean after = new GregorianCalendar(book.getYear(), 0, 1).getTime().compareTo(date) > 0;
-					if(date == null || after) {
+					if(date != null) {
+						boolean after = new GregorianCalendar(book.getYear(), 0, 1).getTime().compareTo(date) > 0;
+						list.add(createBook(book));
+					} else {
 						list.add(createBook(book));
 					}
 				}
@@ -86,7 +89,7 @@ public class WebService implements RecordFinderInterface {
 	public List findRecords(String informationType, String queryString) throws DatabaseException {
 		List results = new ArrayList();
 		try {
-			if(informationType.charAt(0).equals('B')) {
+			if(informationType.charAt(0)=='B') {
 				LibrarySearchResponse response = service.process(new LibrarySearchRequest(queryString));
 				results = parse(response.getBooks());
 			}
@@ -99,7 +102,7 @@ public class WebService implements RecordFinderInterface {
 	public List findRecordsFrom(String informationType, Date date) throws DatabaseException {
 		List results = new ArrayList();
 		try {
-			if(informationType.charAt(0).equals('B')) {
+			if(informationType.charAt(0)=='B') {
 				LibrarySearchResponse response = service.process(new LibrarySearchRequest(""));
 				results = parse(response.getBooks(), date);
 			}

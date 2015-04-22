@@ -19,8 +19,9 @@ import librarysearch.soft.LibrarySearchResponse;
 import librarysearch.soft.LibrarySearchSOAPBindingStub;
 import librarysearch.soft.LibrarySearchServiceLocator;
 import softarch.portal.data.Book;
+import softarch.portal.db.RecordFinderInterface;
 
-public class WebService {
+public class WebService implements RecordFinderInterface {
 	
 	private LibrarySearchSOAPBindingStub service;
 	
@@ -51,54 +52,61 @@ public class WebService {
 		
 	}
 	 
-	private List<Book> parse(BookList booklist) throws Exception {
+	private List<Book> parse(BookList booklist, Date date) throws Exception {
 		List<Book> list = new ArrayList<Book>();
 		for(MessageElement element : booklist.get_any()) {
 			if(element.getName().equals("searchBooksResponse")) {
 				for (Iterator<MessageElement> iterator = element.getChildren().iterator(); iterator.hasNext();) {
 					MessageElement el = iterator.next();
 					be.ac.vub.soft.Book book = (be.ac.vub.soft.Book) el.getObjectValue(be.ac.vub.soft.Book.class);
-					list.add(createBook(book));
+					boolean after = new GregorianCalendar(book.getYear(), 0, 1).getTime().compareTo(date) > 0;
+					if(date == null || after) {
+						list.add(createBook(book));
+					}
 				}
 			} else {
 				be.library.Book book = (be.library.Book) element.getObjectValue(be.library.Book.class);
-				list.add(createBook(book));
+				if(date == null || book.getDate().getTime().compareTo(date) > 0) {
+					list.add(createBook(book));
+				}
 			}
 		}
 		return list;
 	}
-	public WebService(){
-		try {
-			LibrarySearchServiceLocator locator = new LibrarySearchServiceLocator();
-			service = (LibrarySearchSOAPBindingStub) locator.getLibrarySearchServicePort(new URL("http://localhost:8080/ode/processes/LibrarySearchService"));
-		} catch (ServiceException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+
+	private List<Book> parse(BookList booklist) throws Exception {
+		return parse(booklist, null);
 	}
-	
-	public List<Book> findRecords(String query){
+
+	public WebService() throws ServiceException, MalformedURLException{
+		LibrarySearchServiceLocator locator = new LibrarySearchServiceLocator();
+		service = (LibrarySearchSOAPBindingStub) locator.getLibrarySearchServicePort(new URL("http://localhost:8080/ode/processes/LibrarySearchService"));
+	}
+
+	public List findRecords(String informationType, String queryString) throws DatabaseException {
+		List results = new ArrayList();
 		try {
-			LibrarySearchResponse response = service.process(new LibrarySearchRequest(query));
-			return parse(response.getBooks());
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			if(informationType.charAt(0).equals('B')) {
+				LibrarySearchResponse response = service.process(new LibrarySearchRequest(queryString));
+				results = parse(response.getBooks());
+			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new DatabaseException("problem getting records " + e.getMessage());
 		}
-		return null;
-		
+		return results;
 	}
-	
-	public List<Book> findRecordsFrom(String query, Date start) {
-		return null;
-		
+
+	public List findRecordsFrom(String informationType, Date date) throws DatabaseException {
+		List results = new ArrayList();
+		try {
+			if(informationType.charAt(0).equals('B')) {
+				LibrarySearchResponse response = service.process(new LibrarySearchRequest(""));
+				results = parse(response.getBooks(), date);
+			}
+		} catch (Exception e) {
+			throw new DatabaseException("problem getting records " + e.getMessage());
+		}
+		return results;
 	}
 
 }

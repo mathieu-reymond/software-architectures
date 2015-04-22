@@ -57,8 +57,6 @@ public class RegularDatabase extends Database {
 					while (rs.next()) {
 						result.add(new Book(rs));
 					}
-					WebService service = new WebService();
-					result.addAll(service.findRecords(queryString));
 					return result;
 				case 'A':
 					rs = statement.executeQuery("SELECT * FROM Article WHERE MATCH (Author, Review, Summary, Title) AGAINST (\'" + queryString + "\' IN BOOLEAN MODE) ORDER BY DateAdded DESC;");

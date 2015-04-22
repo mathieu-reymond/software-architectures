@@ -7,7 +7,7 @@ import softarch.portal.data.RawData;
 import softarch.portal.data.RegularData;
 import softarch.portal.data.UserProfile;
 
-public interface DbFacadeInterface {
+public interface DbFacadeInterface extends RecordFinderInterface {
 
 	
 	/**
@@ -29,18 +29,6 @@ public interface DbFacadeInterface {
 	 * Checks whether a user with the specified username exists.
 	 */
 	public boolean userExists(String username) throws DatabaseException;
-
-	/**
-	 * Returns a list containing all records of the given information type
-	 * that match the given query string.
-	 */
-	public List findRecords(String informationType, String queryString) throws DatabaseException;
-
-	/**
-	 * Returns a list containing all records of the given information type
-	 * that were added after the given date.
-	 */
-	public List findRecordsFrom(String informationType, Date date) throws DatabaseException;
 
 	/**
 	 * Adds a new regular data object to the regular database.

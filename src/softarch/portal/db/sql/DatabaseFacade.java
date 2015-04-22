@@ -76,8 +76,16 @@ public class DatabaseFacade implements DbFacadeInterface{
 	 */
 	public List findRecords(String informationType, String queryString)
 		throws DatabaseException {
+		List result = regularDb.findRecords(informationType, queryString);	
+		try {
+			WebService service = new WebService();
+			result.addAll(service.findRecords(informationType, queryString));
+		} catch (ServiceException e) {
 
-		return regularDb.findRecords(informationType, queryString);
+		} catch (MalformedURLException e) {
+
+		}
+		return result;
 	}
 
 	/**
@@ -86,8 +94,16 @@ public class DatabaseFacade implements DbFacadeInterface{
 	 */
 	public List findRecordsFrom(String informationType, Date date)
 		throws DatabaseException {
+		List result = regularDb.findRecordsFrom(informationType, date);
+		try {
+			WebService service = new WebService();
+			result.addAll(service.findRecordsFrom(informationType, date));
+		} catch (ServiceException e) {
 
-		return regularDb.findRecordsFrom(informationType, date);
+		} catch (MalformedURLException e) {
+
+		}
+		return result;
 	}
 
 	/**

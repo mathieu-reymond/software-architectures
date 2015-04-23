@@ -71,9 +71,12 @@ public class ApplicationFacade {
 				String facade = (String) json.get("name");
 				JSONArray paramsArray = (JSONArray) json.get("parameters");
 				Object[] params = paramsArray.toArray();
-				
+				Class[] paramClasses = new Class[params.length];
+				for (int i = 0; i < paramClasses.length; i++) {
+					paramClasses[i] = params[i].getClass();
+				}
 				Class<?> c = Class.forName(facade);
-				Constructor<?> cons = c.getConstructor(String.class);
+				Constructor<?> cons = c.getConstructor(paramClasses);
 				DbFacadeInterface object = (DbFacadeInterface) cons.newInstance(params);
 				return (DbFacadeInterface) object;
 			} catch (Exception e) {
